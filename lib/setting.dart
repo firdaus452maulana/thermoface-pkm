@@ -572,16 +572,18 @@ class SettingState extends State<Setting> {
     return xsuhu;
   }
 
-  int bacaWarna(String str) {
+  String bacaSensor(String str) {
     int index = str.indexOf("Suhu");
     String xsuhu = str.substring(index + 5, str.length - 2);
-    double doubleSuhu = double.parse(xsuhu);
-    if (doubleSuhu > 37.5) {
-      warna = 1;
-    } else {
-      warna = 0;
-    }
-    return warna;
+    return xsuhu;
+  }
+
+  int bacaWarna(String str) {
+    int index = str.indexOf("trigger");
+    String trig = str.substring(index + 8, str.length - 2);
+    int doubleSuhu = int.parse(trig);
+
+    return doubleSuhu;
   }
 
   // Method to disconnect bluetooth
@@ -619,6 +621,15 @@ class SettingState extends State<Setting> {
   /// tanggal 18 agustus 2020
   void sendOnMessageToBluetooth() async {
     connection.output.add(utf8.encode("1" + "\r\n"));
+    await connection.output.allSent;
+    //show('Device Turned On');
+    setState(() {
+      _deviceState = 1; // device on
+    });
+  }
+
+  void sendOnMessageToBluetoothSensor() async {
+    connection.output.add(utf8.encode("2" + "\r\n"));
     await connection.output.allSent;
     //show('Device Turned On');
     setState(() {

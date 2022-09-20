@@ -802,129 +802,97 @@ class FaceRecState extends State<FaceRec> {
                   //String str1 = "359306105515041"; //TAB2
                   //if (str1.compareTo(_platformImei) != 0) {
                   //if ((mt >= 8) || (th > 2021)) {
-                  if (th > 2022) {
-                    xsuhu = "Hubungi:Lunari";
-                    stTemp = "081295982363";
+                  // if (th > 2022) {
+                  //   xsuhu = "Hubungi:Lunari";
+                  //   stTemp = "081295982363";
+                  // } else {
+                  stTemp = "NORMAL";
+                  /*setSuhu = parsedJson['suhu'];
+                  setMask = parsedJson['mask'];
+                  setSound = parsedJson['sound'];*/
+                  double setSH = double.parse(setSuhu);
+                  double setSM = double.parse(setMask);
+                  double setSS = double.parse(setSound);
+                  if (temp >= setSH) {
+                    stTemp = "DI ATAS NORMAL";
+                    xwarna = 1;
                   } else {
                     stTemp = "NORMAL";
-                    /*setSuhu = parsedJson['suhu'];
-                    setMask = parsedJson['mask'];
-                    setSound = parsedJson['sound'];*/
-                    double setSH = double.parse(setSuhu);
-                    double setSM = double.parse(setMask);
-                    double setSS = double.parse(setSound);
-                    if (temp >= setSH) {
-                      stTemp = "DI ATAS NORMAL";
-                      xwarna = 1;
-                    } else {
-                      stTemp = "NORMAL";
-                      xwarna = 0;
-                    }
-                    co++;
-                    if (co >= 7) {
-                      //FaceRecState.instance.stopCamera();
-                      //ScanQrCode();
-                      croppedImage =
-                          imglib.copyResizeCropSquare(croppedImage, 112);
-                      res = _recog(croppedImage);
-                      if (res == null) res = "PENGUNJUNG";
-                      _res = res;
-                      finalResult.add(_res, _face);
-                      st = 0;
-                      String tgl = ambilTanggal();
-                      String jam = ambilJam();
-                      dt = tgl + " " + jam;
-                      String path = MyApp.imgDir;
-                      String namafile = '$deviceID-$tgl$jam.png';
-                      path = path + "/" + namafile;
-                      _path = path;
-                      _namefile = namafile;
-                      _tgl = tgl;
-                      _jam = jam;
+                    xwarna = 0;
+                  }
+                  co++;
+                  if (co >= 7) {
+                    //FaceRecState.instance.stopCamera();
+                    //ScanQrCode();
+                    croppedImage =
+                        imglib.copyResizeCropSquare(croppedImage, 112);
+                    res = _recog(croppedImage);
+                    if (res == null) res = "PENGUNJUNG";
+                    _res = res;
+                    finalResult.add(_res, _face);
+                    st = 0;
+                    String tgl = ambilTanggal();
+                    String jam = ambilJam();
+                    dt = tgl + " " + jam;
+                    String path = MyApp.imgDir;
+                    String namafile = '$deviceID-$tgl$jam.png';
+                    path = path + "/" + namafile;
+                    _path = path;
+                    _namefile = namafile;
+                    _tgl = tgl;
+                    _jam = jam;
 
-                      imglib.Image croppedImage1 = imglib.copyCrop(
-                          convertedImage,
-                          x.round() - 25,
-                          y.round() - 25,
-                          w.round() + 50,
-                          h.round() + 50);
-                      /*x.round() + 35,
-                          y.round() + 25,
-                          w.round() - 70,
-                          h.round() - 50);*/
-                      croppedImage1 =
-                          imglib.copyResizeCropSquare(croppedImage1, 128);
-                      var pngFile = imglib.encodePng(croppedImage1);
-                      new File(path).writeAsBytesSync(pngFile);
+                    imglib.Image croppedImage1 = imglib.copyCrop(
+                        convertedImage,
+                        x.round() - 25,
+                        y.round() - 25,
+                        w.round() + 50,
+                        h.round() + 50);
+                    /*x.round() + 35,
+                        y.round() + 25,
+                        w.round() - 70,
+                        h.round() - 50);*/
+                    croppedImage1 =
+                        imglib.copyResizeCropSquare(croppedImage1, 128);
+                    var pngFile = imglib.encodePng(croppedImage1);
+                    new File(path).writeAsBytesSync(pngFile);
 
-                      String path1 = MyApp.imgDir;
-                      String namafile1 = 'temp.png';
-                      path1 = path1 + "/" + namafile1;
-                      imglib.Image croppedImage2 = imglib.copyCrop(
-                          convertedImage,
-                          /*x.round(),
-                          y.round(),
-                          w.round(),
-                          h.round());*/
-                          x.round() - 25,
-                          y.round() - 25,
-                          w.round() + 50,
-                          h.round() + 50);
-                      /*x.round() + 35,
-                          y.round() + 25,
-                          w.round() - 70,
-                          h.round() - 50);*/
-                      //croppedImage2 =
-                      //    imglib.copyResizeCropSquare(croppedImage2, 32);
+                    String path1 = MyApp.imgDir;
+                    String namafile1 = 'temp.png';
+                    path1 = path1 + "/" + namafile1;
+                    imglib.Image croppedImage2 = imglib.copyCrop(
+                        convertedImage,
+                        /*x.round(),
+                        y.round(),
+                        w.round(),
+                        h.round());*/
+                        x.round() - 25,
+                        y.round() - 25,
+                        w.round() + 50,
+                        h.round() + 50);
+                    /*x.round() + 35,
+                        y.round() + 25,
+                        w.round() - 70,
+                        h.round() - 50);*/
+                    //croppedImage2 =
+                    //    imglib.copyResizeCropSquare(croppedImage2, 32);
 
-                      var pngFile1 = imglib.encodePng(croppedImage2);
-                      new File(path1).writeAsBytesSync(pngFile1);
-                      String nilai = await processImage(new File(path1));
-                      int number = int.parse(nilai);
-                      if (number == 0)
-                        stMask = "MASK";
-                      else
-                        stMask = "NO MASK";
-                      if (setSM == 1) {
-                        if ((number != 0) && (setSS == 1)) {
-                          xwarna = 2;
-                          if (_res.compareTo('PENGUNJUNG') == 0)
-                            text = "mohon menggunakan masker anda";
-                          else
-                            text = "$_res mohon menggunakan masker anda";
-                          _speak();
-                        } else {
-                          if ((xwarna == 1) && (setSS == 1)) {
-                            String str = xsuhu.replaceAll(".", ",");
-                            if (_res.compareTo('PENGUNJUNG') == 0)
-                              text = "maaf suhu tubuh anda diatas normal " +
-                                  str +
-                                  " derajat celsius";
-                            else
-                              text =
-                                  "$_res maaf suhu tubuh anda diatas normal " +
-                                      str +
-                                      " derajat celsius";
-                            _speak();
-                          }
-                          if ((xwarna == 0) && (setSS == 1)) {
-                            String str = xsuhu.replaceAll(".", ",");
-                            if (_res.compareTo('PENGUNJUNG') == 0)
-                              text = "suhu tubuh anda normal " +
-                                  str +
-                                  " derajat celsius";
-                            else
-                              text = "$_res suhu tubuh anda normal " +
-                                  str +
-                                  " derajat celsius";
-                            // stopCamera1();
-                            // Navigator.pushReplacement(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => ScanQrCode()));
-                            _speak();
-                          }
-                        }
+                    var pngFile1 = imglib.encodePng(croppedImage2);
+                    new File(path1).writeAsBytesSync(pngFile1);
+                    String nilai = await processImage(new File(path1));
+                    int number = int.parse(nilai);
+                    if (number == 0)
+                      stMask = "MASK";
+                    else
+                      stMask = "NO MASK";
+                    if (setSM == 1) {
+                      if ((number != 0) && (setSS == 1)) {
+                        xwarna = 2;
+                        if (_res.compareTo('PENGUNJUNG') == 0)
+                          text = "mohon menggunakan masker anda";
+                        else
+                          text = "$_res mohon menggunakan masker anda";
+                        _speak();
                       } else {
                         if ((xwarna == 1) && (setSS == 1)) {
                           String str = xsuhu.replaceAll(".", ",");
@@ -933,9 +901,10 @@ class FaceRecState extends State<FaceRec> {
                                 str +
                                 " derajat celsius";
                           else
-                            text = "$_res maaf suhu tubuh anda diatas normal " +
-                                str +
-                                " derajat celsius";
+                            text =
+                                "$_res maaf suhu tubuh anda diatas normal " +
+                                    str +
+                                    " derajat celsius";
                           _speak();
                         }
                         if ((xwarna == 0) && (setSS == 1)) {
@@ -948,69 +917,100 @@ class FaceRecState extends State<FaceRec> {
                             text = "$_res suhu tubuh anda normal " +
                                 str +
                                 " derajat celsius";
+                          // stopCamera1();
+                          // Navigator.pushReplacement(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) => ScanQrCode()));
                           _speak();
                         }
                       }
-                      Contact contact =
-                          Contact(_tgl, _jam, xsuhu, stTemp, stMask, path);
-                      addContact(contact);
-                      _backupdata(dt, deviceID, xsuhu, stTemp, stMask, _res,
-                          _namefile, _path);
-
-                      /*datastorage.read().then((String value) {
-                        try {
-                          _str = value;
-                        } on Exception catch (e) {
-                          print(e);
-                          _str =
-                              "{datetime=2021-04-07 20:11:35,deviceID=FCM001,temp=36.0,stTemp=NORMAL,stMask=NO MASK,name=PENGUNJUNG,namefile=FCM001-20210407201135.png,namepath=/storage/emulated/0/Android/data/com.rajatkalsotra.face_recognition/files/FCM001-20210407201135.png}\r\n";
-                        }
-                        /*_str =
-                                "{datetime=2021-04-09 19:38:58,deviceID=FCM001,temp=36.1,stTemp=NORMAL,stMask=NO MASK,name=PENGUNJUNG,namefile=FCM001-20210409193858.png,namepath=/storage/emulated/0/Android/data/com.rajatkalsotra.face_recognition/files/FCM001-20210409193858.png}{datetime=2021-04-09 19:39:04,deviceID=FCM001,temp=36.2,stTemp=NORMAL,stMask=NO MASK,name=PENGUNJUNG,namefile=FCM001-20210409193904.png,namepath=/storage/emulated/0/Android/data/com.rajatkalsotra.face_recognition/files/FCM001-20210409193904.png}{datetime=2021-04-09 19:39:11,deviceID=FCM001,temp=36.1,stTemp=NORMAL,stMask=NO MASK,name=PENGUNJUNG,namefile=FCM001-20210409193911.png,namepath=/storage/emulated/0/Android/data/com.rajatkalsotra.face_recognition/files/FCM001-20210409193911.png}{datetime=2021-04-09 19:39:17,deviceID=FCM001,temp=36.1,stTemp=NORMAL,stMask=MASK,name=PENGUNJUNG,namefile=FCM001-20210409193917.png,namepath=/storage/emulated/0/Android/data/com.rajatkalsotra.face_recognition/files/FCM001-20210409193917.png}{datetime=2021-04-09 19:39:25,deviceID=FCM001,temp=36.1,stTemp=NORMAL,stMask=NO MASK,name=PENGUNJUNG,namefile=FCM001-20210409193925.png,namepath=/storage/emulated/0/Android/data/com.rajatkalsotra.face_recognition/files/FCM001-20210409193925.png}";*/
-                        var arr1 = new List(500);
-                        var arr2 = new List(500);
-                        int co1 = 0;
-                        int co2 = 0;
-                        for (i = 0; i < _str.length; i++) {
-                          if (_str[i] == '{') {
-                            index1 = i;
-                            arr1[co1] = index1;
-                            co1++;
-                            //print(index1);
-                          }
-                          if (_str[i] == '}') {
-                            index2 = i;
-                            arr2[co2] = index2;
-                            co2++;
-                            //print(index2);
-                          }
-                        }
-                        //print(co2);
-                        String str1;
-                        jumSend = 0;
-                        for (int j = 0; j < co2; j++) {
-                          str1 = _str.substring(arr1[j], arr2[j]);
-                          bacaData(str1);
-                          sendDataAll(_datetime, _deviceID, _temp, _stTemp,
-                              _stMask, _nama, _namefile, _namepath, _url);
-                        }
-                        //if (jumSend == co2) datastorage.clean();
-                      });*/
-                      _backupdata(dt, deviceID, xsuhu, stTemp, stMask, _res,
-                          _namefile, _path);
-                      String str1 =
-                          "{datetime=$dt,deviceID=$deviceID,temp=$xsuhu,stTemp=$stTemp,stMask=$stMask,name=$_res,namefile=$_namefile,namepath=$_path}";
-                      bacaData(str1);
-                      sendDataAll(_datetime, _deviceID, _temp, _stTemp, _stMask,
-                          _nama, _namefile, _namepath, _url);
-                      setState(() {
-                        showStatusBar = false;
-                      });
+                    } else {
+                      if ((xwarna == 1) && (setSS == 1)) {
+                        String str = xsuhu.replaceAll(".", ",");
+                        if (_res.compareTo('PENGUNJUNG') == 0)
+                          text = "maaf suhu tubuh anda diatas normal " +
+                              str +
+                              " derajat celsius";
+                        else
+                          text = "$_res maaf suhu tubuh anda diatas normal " +
+                              str +
+                              " derajat celsius";
+                        _speak();
+                      }
+                      if ((xwarna == 0) && (setSS == 1)) {
+                        String str = xsuhu.replaceAll(".", ",");
+                        if (_res.compareTo('PENGUNJUNG') == 0)
+                          text = "suhu tubuh anda normal " +
+                              str +
+                              " derajat celsius";
+                        else
+                          text = "$_res suhu tubuh anda normal " +
+                              str +
+                              " derajat celsius";
+                        _speak();
+                      }
                     }
+                    Contact contact =
+                        Contact(_tgl, _jam, xsuhu, stTemp, stMask, path);
+                    addContact(contact);
+                    _backupdata(dt, deviceID, xsuhu, stTemp, stMask, _res,
+                        _namefile, _path);
+
+                    /*datastorage.read().then((String value) {
+                      try {
+                        _str = value;
+                      } on Exception catch (e) {
+                        print(e);
+                        _str =
+                            "{datetime=2021-04-07 20:11:35,deviceID=FCM001,temp=36.0,stTemp=NORMAL,stMask=NO MASK,name=PENGUNJUNG,namefile=FCM001-20210407201135.png,namepath=/storage/emulated/0/Android/data/com.rajatkalsotra.face_recognition/files/FCM001-20210407201135.png}\r\n";
+                      }
+                      /*_str =
+                              "{datetime=2021-04-09 19:38:58,deviceID=FCM001,temp=36.1,stTemp=NORMAL,stMask=NO MASK,name=PENGUNJUNG,namefile=FCM001-20210409193858.png,namepath=/storage/emulated/0/Android/data/com.rajatkalsotra.face_recognition/files/FCM001-20210409193858.png}{datetime=2021-04-09 19:39:04,deviceID=FCM001,temp=36.2,stTemp=NORMAL,stMask=NO MASK,name=PENGUNJUNG,namefile=FCM001-20210409193904.png,namepath=/storage/emulated/0/Android/data/com.rajatkalsotra.face_recognition/files/FCM001-20210409193904.png}{datetime=2021-04-09 19:39:11,deviceID=FCM001,temp=36.1,stTemp=NORMAL,stMask=NO MASK,name=PENGUNJUNG,namefile=FCM001-20210409193911.png,namepath=/storage/emulated/0/Android/data/com.rajatkalsotra.face_recognition/files/FCM001-20210409193911.png}{datetime=2021-04-09 19:39:17,deviceID=FCM001,temp=36.1,stTemp=NORMAL,stMask=MASK,name=PENGUNJUNG,namefile=FCM001-20210409193917.png,namepath=/storage/emulated/0/Android/data/com.rajatkalsotra.face_recognition/files/FCM001-20210409193917.png}{datetime=2021-04-09 19:39:25,deviceID=FCM001,temp=36.1,stTemp=NORMAL,stMask=NO MASK,name=PENGUNJUNG,namefile=FCM001-20210409193925.png,namepath=/storage/emulated/0/Android/data/com.rajatkalsotra.face_recognition/files/FCM001-20210409193925.png}";*/
+                      var arr1 = new List(500);
+                      var arr2 = new List(500);
+                      int co1 = 0;
+                      int co2 = 0;
+                      for (i = 0; i < _str.length; i++) {
+                        if (_str[i] == '{') {
+                          index1 = i;
+                          arr1[co1] = index1;
+                          co1++;
+                          //print(index1);
+                        }
+                        if (_str[i] == '}') {
+                          index2 = i;
+                          arr2[co2] = index2;
+                          co2++;
+                          //print(index2);
+                        }
+                      }
+                      //print(co2);
+                      String str1;
+                      jumSend = 0;
+                      for (int j = 0; j < co2; j++) {
+                        str1 = _str.substring(arr1[j], arr2[j]);
+                        bacaData(str1);
+                        sendDataAll(_datetime, _deviceID, _temp, _stTemp,
+                            _stMask, _nama, _namefile, _namepath, _url);
+                      }
+                      //if (jumSend == co2) datastorage.clean();
+                    });*/
+                    _backupdata(dt, deviceID, xsuhu, stTemp, stMask, _res,
+                        _namefile, _path);
+                    String str1 =
+                        "{datetime=$dt,deviceID=$deviceID,temp=$xsuhu,stTemp=$stTemp,stMask=$stMask,name=$_res,namefile=$_namefile,namepath=$_path}";
+                    bacaData(str1);
+                    sendDataAll(_datetime, _deviceID, _temp, _stTemp, _stMask,
+                        _nama, _namefile, _namepath, _url);
                     setState(() {
-                      _scanResults = finalResult;
+                      showStatusBar = false;
                     });
                   }
+                  setState(() {
+                    _scanResults = finalResult;
+                  });
+                  // }
                 }
                 mul = 1;
                 if (co >= 7) {

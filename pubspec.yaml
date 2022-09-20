@@ -52,8 +52,8 @@ dev_dependencies:
     sdk: flutter
 
 flutter_icons:
-    image_path_android: "assets/thermoface.jpeg"
-    image_path_ios: "assets/thermoface.jpeg"
+    image_path_android: "assets/thermaface.png"
+    image_path_ios: "assets/thermaface.png"
     android: true
     ios: true
 
